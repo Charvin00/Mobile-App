@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { AppRegistry, StyleSheet, Text, TextInput, View, Button } from "react-native";
+import { connect } from 'react-redux';
+import { counterIncrement, counterDecrement } from './actions';
 
-export default class App extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,6 +33,8 @@ export default class App extends Component {
   }
 
   render() {
+    console.log(this.props);
+
     const { container, countViewStyle, welcome } = styles;
     return (
       <View style={container}>
@@ -40,11 +44,11 @@ export default class App extends Component {
             value={this.state.count.toString()}
            />
         <View style={countViewStyle}> 
-          <Button onPress={this.onPressIncrement} title="+" />
+          <Button onPress={this.props.counterIncrement} title="+" />
           <Text style={welcome}>
-            {this.state.count}
+            {this.props.count}
           </Text>
-          <Button onPress={this.onPressDecrement} title="-" />
+          <Button onPress={this.props.counterDecrement} title="-" />
         </View>
         <Button onPress={this.onPressClear} title="Clear" />
       </View>
@@ -73,3 +77,12 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   }
 });
+
+function mapStateToProps(state) {
+  return {
+    count: state, 
+  }
+}
+
+export default connect(mapStateToProps, { counterIncrement, counterDecrement })(App);
+
