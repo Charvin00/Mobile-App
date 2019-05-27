@@ -5,9 +5,9 @@ import {name as appName} from './app.json';
 import React from 'react';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import reducer from './src/reducers/counterReducer';
+import reducers from './src/reducers';
 
-const store = createStore(reducer);
+const store = createStore(reducers);
 
 const AppContainter = () =>
     <Provider store={store} >
